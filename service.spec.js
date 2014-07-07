@@ -11,7 +11,6 @@ describe('MassbankService test', function () {
 		}));
 
 		it('should return one spectra for the given test file with 1 spectra in it', inject(function (massbankService) {
-
 			var data =
 				"ACCESSION: MCH00011\n"+
 				"RECORD_TITLE: 3-Hydroxypicolinic acid; MALDI-TOF; MS; Pos\n"+

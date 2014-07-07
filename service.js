@@ -6,7 +6,9 @@ angular.module('massbank.parser', []).
         var self = this;
 
         /**
-         * converts the data using a callback
+         * Converts the data using a callback
+         * Follows the MassBank Record Format v2.09
+         * http://www.massbank.jp/manuals/MassBankRecord_en.pdf
          * @param data
          * @param callback
          */
@@ -26,7 +28,7 @@ angular.module('massbank.parser', []).
             var regexAttr = /\s*(\w+):\s(.+)\s/g;
 
             // Regular expression for getting the annotations
-            var regexAnnotation = /\s\s(\d+\.?\d*)\s(\[[+-\w]+\][+-])\s/g;
+            var regexAnnotation = /\s\s(\d+\.?\d*)\s(\[[+\-\w]+\][+\-])\s/g;
 
             // Regular expression for getting subtags and values
             var regexSubtags = /(\w+)\s(.+)/;

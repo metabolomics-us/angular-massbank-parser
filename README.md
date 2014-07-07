@@ -1,6 +1,6 @@
 # README #
 
-This is a MassBank file parser for angularjs.
+This is a MassBank file parser for AngularJS.
 
 ### What is this repository for? ###
 
