@@ -1,6 +1,6 @@
 # README #
 
-This is a MSP file parser for angularjs.
+This is a MassBank file parser for angularjs.
 
 ### What is this repository for? ###
 
@@ -10,4 +10,4 @@ Just inject it as service and you are ready togo.
 
 install:
 
-bower install https://wohlgemuth@bitbucket.org/fiehnlab/angular-msp-parser.git
+bower install https://wohlgemuth@bitbucket.org/fiehnlab/angular-massbank-parser.git

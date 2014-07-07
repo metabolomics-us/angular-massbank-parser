@@ -2,17 +2,15 @@
  * Created by Gert on 6/16/2014.
  */
 describe('MassbankService test', function () {
-
-	describe('when I call gwMspService.convert', function () {
+	describe('when I call massbankService.convert', function () {
 		beforeEach(module('massbank.parser'));
 
 
-		it('should return an empty array if no data is given', inject(function (gwMspService) {
-
-			expect(gwMspService.convertToArray()).toEqual([]);
+		it('should return an empty array if no data is given', inject(function (massbankService) {
+			expect(massbankService.convertToArray()).toEqual([]);
 		}));
 
-		it('should return one spectra for the given test file with 1 spectra in it', inject(function (gwMspService) {
+		it('should return one spectra for the given test file with 1 spectra in it', inject(function (massbankService) {
 
 			var data =
 				"ACCESSION: MCH00011\n"+
@@ -91,118 +89,12 @@ describe('MassbankService test', function () {
 				"  484.103183 1215 25\n"+
 				"//\n";
 
-			var result = gwMspService.convertToArray(data);
+			var result = massbankService.convertToArray(data);
 
-			expect(result.length).toEqual(1);
-
-			console.log(result[0].name);
-			expect(result[0].name).toEqual('glutamate');
+			expect(result.length === 1);
+			expect('3-Hydroxypicolinic acid' in result[0].names);
+			expect('HPA' in result[0].names);
 			expect(result[0].meta);
 		}));
-
-		it('should return 3 spectra for the given object with 3 defined spectra', inject(function (gwMspService) {
-			var data =
-				"Name: 1,3-diaminopropane_RI 546361" +
-				"Synon: ##chromatogram=060112bylcs11 \n" +
-				"CASNO: 109762 \n" +
-				"ID: 1361 \n" +
-				"Comment: fiehn \n" +
-				"Num peaks: 86 \n" +
-				"85   24;  86  922;  87   90;  88   41;  89    4; \n" +
-				"97    1;  98   22;  99   17; 100  454; 101   73; \n" +
-				"102   61; 103   17; 104    4; 105    1; 110    1; \n" +
-				"111    1; 112   30; 113   32; 114   59; 115   34; \n" +
-				"116   72; 117   65; 118   13; 119    4; 125    1; \n" +
-				"126    9; 127    5; 128   99; 129   37; 130  320; \n" +
-				"131   85; 132   45; 133    7; 134    2; 140    1; \n" +
-				"141    1; 142    7; 143    4; 144   24; 145    7; \n" +
-				"146   65; 147   10; 148    4; 156    7; 157    3; \n" +
-				"158   34; 159    6; 160  395; 161   69; 162   31; \n" +
-				"163    3; 170   20; 171   12; 172  571; 173  109; \n" +
-				"174  999; 175  177; 176   78; 177    9; 178    1; \n" +
-				"184    3; 185    9; 186  172; 187   37; 188   31; \n" +
-				"189    6; 190    4; 191    1; 192    1; 199    2; \n" +
-				"200    5; 201  338; 202   74; 203   31; 204    5; \n" +
-				"205    1; 215    1; 217    1; 218    1; 243    1; \n" +
-				"259   18; 260    5; 261    2; 273    1; 287    1; \n" +
-				"347    1; \n" +
-				"\n" +
-				"Name: 2-deoxyuridine_RI 8308728 \n" +
-				"Synon: ##chromatogram=051108bylcs20 \n" +
-				"CASNO: 951780 \n" +
-				"ID: 1362 \n" +
-				"Comment: fiehn \n" +
-				"Num peaks: 122 \n" +
-				"85   25;  86    6;  87   15;  88    5;  89   27; \n" +
-				"90    3;  91    4;  92    2;  93    2;  94    4; \n" +
-				"95   14;  96   37;  97   11;  98    7;  99   59; \n" +
-				"100   18; 101  105; 102   13; 103  999; 104   95; \n" +
-				"105   45; 106    3; 107    1; 108    9; 109    3; \n" +
-				"110    1; 111   25; 112   21; 113   33; 114    6; \n" +
-				"115   21; 116   14; 117  184; 118   19; 119   13; \n" +
-				"120    2; 121    1; 122    2; 123    1; 124    6; \n" +
-				"125   11; 126    7; 127   23; 128    5; 129  134; \n" +
-				"130   16; 131   31; 132    3; 133   62; 134    8; \n" +
-				"135    6; 136    3; 137    1; 138    1; 139    2; \n" +
-				"140    2; 141    6; 142   11; 143   25; 144    3; \n" +
-				"145   67; 146    7; 147   80; 148   12; 149   11; \n" +
-				"150    3; 151    6; 152    1; 153    1; 154    2; \n" +
-				"155   77; 156   11; 157   31; 158    4; 159    3; \n" +
-				"163    2; 167    1; 168    3; 169   66; 170   47; \n" +
-				"171  189; 172   29; 173   12; 174    2; 175    2; \n" +
-				"177    2; 183    2; 184    9; 185    6; 186    1; \n" +
-				"187    1; 189   16; 190    2; 191    2; 192    4; \n" +
-				"193    1; 195    5; 196    2; 197    1; 204    1; \n" +
-				"211   14; 212    2; 215    1; 217   13; 218    2; \n" +
-				"219    2; 229    2; 231    1; 239    1; 240    1; \n" +
-				"242    2; 243    1; 245    4; 246    1; 249    2; \n" +
-				"261   24; 262    5; 263    2; 264    1; 267    3; \n" +
-				"282    1; 327    1; \n" +
-				"\n" +
-				"Name: cytosin_RI 486112 \n" +
-				"Synon: ##chromatogram=060118bylcs10 \n" +
-				"CASNO: 71307 \n" +
-				"ID: 1363 \n" +
-				"Comment: fiehn \n" +
-				"Num peaks: 135 \n" +
-				"85   62;  86  126;  88   13;  89    4;  90    1; \n" +
-				"91   14;  92    6;  93   11;  94   22;  95   83; \n" +
-				"96   32;  97   74;  98  999;  99  170; 100  539; \n" +
-				"101  115; 102   39; 103   16; 104    4; 105   29; \n" +
-				"106    3; 107    2; 108    3; 109   23; 110   20; \n" +
-				"111   21; 112   43; 113  105; 114   80; 115   31; \n" +
-				"116   37; 117   17; 118    5; 119    2; 120   13; \n" +
-				"121    2; 122    2; 123   36; 124   26; 125  257; \n" +
-				"126   41; 127   31; 128   11; 129    4; 130  132; \n" +
-				"131   66; 132   37; 133   18; 134    5; 135    1; \n" +
-				"136    6; 137    3; 138   12; 139   18; 140   22; \n" +
-				"141   14; 142    7; 143    3; 144    2; 145    1; \n" +
-				"146  115; 147  234; 148   44; 149   18; 150   51; \n" +
-				"151    8; 152   30; 153    7; 154    9; 155   17; \n" +
-				"156   39; 157   27; 158   11; 159    3; 160    1; \n" +
-				"164    3; 165    1; 166   12; 167   13; 168   83; \n" +
-				"169   14; 170  447; 171   91; 172   44; 173    8; \n" +
-				"174    2; 180    3; 181    7; 182   59; 183   18; \n" +
-				"184   17; 185    3; 186    2; 194    2; 195    2; \n" +
-				"196    2; 197   38; 198   12; 199    6; 200    2; \n" +
-				"208    1; 209    1; 210    9; 211    4; 212    3; \n" +
-				"213   10; 214    2; 215    1; 222    1; 224   26; \n" +
-				"225    6; 226    3; 227    1; 237    2; 238  149; \n" +
-				"239   41; 240  710; 241  154; 242   63; 243    9; \n" +
-				"244    2; 245    1; 246    1; 247    1; 248    1; \n" +
-				"249    1; 250    1; 252    1; 253    4; 254  776; \n" +
-				"255  349; 256  111; 257   27; 258    4; 259    1; \n";
-
-			var result = gwMspService.convertToArray(data);
-
-			console.log(result);
-			expect(result.length).toEqual(3);
-			expect(result[0].name).toEqual('1,3-diaminopropane');
-			expect(result[1].name).toEqual('2-deoxyuridine');
-			expect(result[2].name).toEqual('cytosin');
-
-
-		}))
 	})
-
 });
