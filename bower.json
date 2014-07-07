@@ -1,10 +1,10 @@
 {
 	"name": "angular-massbank-parser",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"authors": [
 		"Sajjan Mehta <sajjan.s.mehta@gmail.com>"
 	],
-	"description": "This is a parser for MassBank Records files",
+	"description": "AngularJS parser for MassBank Records files",
 	"main": "service.js",
 	"keywords": [
 		"angular"
