@@ -3,14 +3,14 @@
  */
 describe('MassbankService test', function () {
 	describe('when I call massbankService.convert', function () {
-		beforeEach(module('massbank.parser'));
+		beforeEach(module('wohlgemuth.massbank.parser'));
 
 
-		it('should return an empty array if no data is given', inject(function (massbankService) {
-			expect(massbankService.convertToArray()).toEqual([]);
+		it('should return an empty array if no data is given', inject(function (gwMassbankService) {
+			expect(gwMassbankService.convertToArray()).toEqual([]);
 		}));
 
-		it('should return one spectra for the given test file with 1 spectra in it', inject(function (massbankService) {
+		it('should return one spectra for the given test file with 1 spectra in it', inject(function (gwMassbankService) {
 			var data =
 				"ACCESSION: MCH00011\n"+
 				"RECORD_TITLE: 3-Hydroxypicolinic acid; MALDI-TOF; MS; Pos\n"+
@@ -88,7 +88,7 @@ describe('MassbankService test', function () {
 				"  484.103183 1215 25\n"+
 				"//\n";
 
-			var result = massbankService.convertToArray(data);
+			var result = gwMassbankService.convertToArray(data);
 
 			expect(result.length === 1);
 			expect('3-Hydroxypicolinic acid' in result[0].names);
