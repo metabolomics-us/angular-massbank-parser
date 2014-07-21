@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('wohlgemuth.massbank.parser', []).
-    service('gwMassbankService', function ($log,$filter) {
+    service('gwMassbankService', function ($log, $filter) {
         // reference to our service
 
         /**
@@ -18,23 +18,57 @@ angular.module('wohlgemuth.massbank.parser', []).
             };
 
 
-            function addMetaData(data, category, spectrum) {
+            function addMetaData(value, category, spectrum) {
+                if (category != null) {
+                    category = trim(category);
+                }
+
                 var sub = /(\w+[\/]*\w)\s(.+)/;
 
-                match = sub.exec(match[2]);
+                var match = sub.exec(value);
 
                 // Add metadata as an array
-                var key = match[1].toLowerCase();
+                var key = trim(match[1].toLowerCase());
 
-                spectrum.meta.push({name: trim(key), value: trim(match[2]), category: trim(category)});
+                //switch categories
+                if (category == 'FOCUSED_ION') {
+                    category = 'MASS_SPECTROMETRY'
+                }
+
+                //let's cutoff the units
+                if (key == 'retention_time') {
+
+                    var reg = /([0-9]+\.?[0-9]+).*min.*/;
+
+                    if (reg.test(match[2])) {
+                        spectrum.meta.push({name: (key), value: trim(reg.exec(match[2])[1]), category: (category)});
+                    }
+                    else {
+                        spectrum.meta.push({name: (key), value: trim(match[2]), category: (category)});
+                    }
+                }
+                //make sure this is a double or ignore it
+                if (key == 'precursor_m/z') {
+                    var reg = /([0-9]+\.?[0-9]+)/g;
+
+                    var getIt = reg.exec(match[2]);
+
+                    while (getIt != null) {
+                        spectrum.meta.push({name: ('precursor m/z'), value: trim(getIt[1]), category: (category)});
+
+                        getIt = reg.exec(match[2])
+                    }
+                }
+                //just deal with it
+                else {
+                    spectrum.meta.push({name: (key), value: trim(match[2]), category: (category)});
+                }
             }
 
             // Initial spectrum
             var spectrum = {meta: [], names: []};
 
-
             var meta = {};
-
 
             // Regular expression for getting the attributes
             var regexAttr = /\s*(\w+):\s(.+)\s/g;
@@ -53,7 +87,7 @@ angular.module('wohlgemuth.massbank.parser', []).
             // Builds our metadata object
             while ((match = regexAttr.exec(buf)) != null) {
 
-                if (match[1] === 'PEAK' || match[1] === 'NUM_PEAK' || match[1] === 'SMILES' || match[1] === 'FORMULA' || match[1] === 'RECORD_TITLE') {
+                if (match[1] === 'PEAK' || match[1] === 'NUM_PEAK' || match[1] === 'SMILES' || match[1] === 'FORMULA' || match[1] === 'RECORD_TITLE' || match[1] === 'DATE') {
                     //skip
                 }
                 else if (match[1] === 'NAME') {
@@ -102,11 +136,23 @@ angular.module('wohlgemuth.massbank.parser', []).
 
             // Builds the spectrum
             var regexSpectra = /\s\s(\d+\.?\d*)\s(\d+\.?\d*)\s\d+\s/g;
+
+            /**
+             * is this an accurate mass
+             * @type {RegExp}
+             */
+            var regExAccurateMass = /([0-9]*\.?[0-9]{3,})/;
+
             var ions = [];
-            var accurateMass = false;
+            var accurateMass = true;
 
             while ((match = regexSpectra.exec(buf)) != null) {
                 ions.push(match[1] + ':' + match[2]);
+
+                //used to determine if this is an accurate mass spectra or not
+                if (!regExAccurateMass.test(match[1])) {
+                    spectrum.accurate = false;
+                }
 
             }
 
@@ -121,24 +167,6 @@ angular.module('wohlgemuth.massbank.parser', []).
             else {
                 $log.warn("was no able to find valid spectra for record:\n\n" + data + "\n\n build object was:\n\n" + $filter('json')(spectrum));
             }
-        };
-
-        /**
-         * converts the given data to an array of spectra objects and it's just a convinience method
-         * @param data
-         * @returns {*}
-         */
-        this.convertToArray = function (data) {
-            if (angular.isDefined(data)) {
-                var result = [];
-
-                this.convertWithCallback(data, function (spectra) {
-                    result.push(spectra);
-                });
-
-                return result;
-            } else
-                return [];
         };
 
         this.convertFromData = function (data, callback) {
