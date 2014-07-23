@@ -135,7 +135,10 @@ angular.module('wohlgemuth.massbank.parser', []).
 
 
             // Builds the spectrum
-            var regexSpectra = /\s\s(\d+\.?\d*)\s(\d+\.?\d*)\s\d+\s/g;
+            // Floating point/scientific notation regex:
+            //     (?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?
+            // from: http://stackoverflow.com/a/658662/406772
+            var regexSpectra = /\s\s((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)\s((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)\s\d+\b/g;
 
             /**
              * is this an accurate mass
@@ -147,13 +150,20 @@ angular.module('wohlgemuth.massbank.parser', []).
             var accurateMass = true;
 
             while ((match = regexSpectra.exec(buf)) != null) {
+                // Convert scientific notation
+                if(match[1].toLowerCase().indexOf('e') > -1) {
+                    match[1] = parseFloat(match[1]).toString();
+                }
+                if(match[2].toLowerCase().indexOf('e') > -1) {
+                    match[2] = parseFloat(match[2]).toString();
+                }
+
                 ions.push(match[1] + ':' + match[2]);
 
-                //used to determine if this is an accurate mass spectra or not
+                // Used to determine if this is an accurate mass spectra or not
                 if (!regExAccurateMass.test(match[1])) {
                     spectrum.accurate = false;
                 }
-
             }
 
             // Join ions to create spectrum string
