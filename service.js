@@ -27,6 +27,10 @@ angular.module('wohlgemuth.massbank.parser', []).
 
                 var match = sub.exec(value);
 
+                if(match == null) {
+                    return;
+                }
+
                 // Add metadata as an array
                 var key = trim(match[1].toLowerCase());
 
