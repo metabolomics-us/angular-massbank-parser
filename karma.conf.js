@@ -5,11 +5,24 @@ module.exports = function (config) {
 	config.set({
 		basePath: '',
 		files: [
+			// Angular
 			'bower_components/angular/angular.js',
 			'bower_components/angular-sanitize/angular-sanitize.js',
 			'bower_components/angular-mocks/angular-mocks.js',
+
+			// App
+			'service.js',
+
+			// Tests
 			'*.spec.js',
-			'*.js'
+
+			// Test data
+			{
+				pattern: 'test_data/*.txt',
+				watched: true,
+				served: true,
+				included: false
+			}
 		],
 
 		reporters: ['progress'],

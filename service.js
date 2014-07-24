@@ -74,7 +74,8 @@ angular.module('wohlgemuth.massbank.parser', []).
             var regexAttr = /\s*(\w+):\s(.+)\s/g;
 
             // Regular expression for getting the annotations
-            var regexAnnotation = /\s\s(\d+\.?\d*)\s(\[[+\-\w]+\][+\-])\s/g;
+            // Get entire annotation: /(\s\s(?:\d+\.?\d*)(?:\s\d+)?\s+[^\s\d]+.+)/g
+            var regexAnnotation = /\s\s(\d+\.?\d*)(?:\s\d+)?\s+.*(\[.+\][\+\-]?(?:\(.+\))?).*/g;
 
             // Regular expression for getting subtags and values
             var regexSubtags = /(\w+)\s(.+)/;
@@ -94,8 +95,7 @@ angular.module('wohlgemuth.massbank.parser', []).
                     spectrum.names.push(trim(match[2]));
                 }
                 else if (match[1] === 'ANNOTATION') {
-
-                    // Parse anotation entries
+                    // Parse annotation entries
                     while ((match = regexAnnotation.exec(data)) != null) {
                         spectrum.meta.push({category: "annotation", name: trim(match[2]), value: trim(match[1])});
                     }
