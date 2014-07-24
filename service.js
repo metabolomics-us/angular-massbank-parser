@@ -94,11 +94,11 @@ angular.module('wohlgemuth.massbank.parser', []).
                     spectrum.names.push(trim(match[2]));
                 }
                 else if (match[1] === 'ANNOTATION') {
-                    meta['annotation'] = [];
 
                     // Parse anotation entries
-                    while ((match = regexAnnotation.exec(data)) != null)
-                        meta['annotation'].push({value: trim(match[1]) + " " + trim(match[2])});
+                    while ((match = regexAnnotation.exec(data)) != null) {
+                        spectrum.meta.push({category: "annotation", name: trim(match[2]), value: trim(match[1])});
+                    }
                 }
                 else if (match[1] == 'IUPAC') {
                     spectrum.inchi = trim(match[2]);
@@ -151,10 +151,10 @@ angular.module('wohlgemuth.massbank.parser', []).
 
             while ((match = regexSpectra.exec(buf)) != null) {
                 // Convert scientific notation
-                if(match[1].toLowerCase().indexOf('e') > -1) {
+                if (match[1].toLowerCase().indexOf('e') > -1) {
                     match[1] = parseFloat(match[1]).toString();
                 }
-                if(match[2].toLowerCase().indexOf('e') > -1) {
+                if (match[2].toLowerCase().indexOf('e') > -1) {
                     match[2] = parseFloat(match[2]).toString();
                 }
 
