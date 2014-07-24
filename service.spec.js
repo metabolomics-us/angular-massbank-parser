@@ -233,6 +233,17 @@ describe('MassbankService test', function () {
 		 * Tests to verify that specific bugs have been fixed
 		 */
 
+		it('should have the appropriate category', inject(function (gwMassbankService) {
+			readFile('BML00033.txt', gwMassbankService, function(data) {
+				expect(data.meta.length).toBeGreaterThan(0);
+				expect(data.spectrum).toBeDefined();
+
+				var comment = data.meta.filter(function(x) { return JSON.stringify(x).indexOf('COMMENT') > -1; })
+				expect(comment.length).toBe(1);
+				expect('category' in comment[0]).toBe(false);
+			});
+		}));
+
 		it('should not have a matching exception', inject(function (gwMassbankService) {
 			readFile('UF000108.txt', gwMassbankService, function(data) {
 				expect(data.meta.length).toBeGreaterThan(0);
@@ -261,5 +272,5 @@ describe('MassbankService test', function () {
 				expect(data.spectrum).toMatch(/^((\d+\.?\d*):(\d+\.?\d*)\s?)+$/);
 			});
 		}));
-	})
+	});
 });

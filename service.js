@@ -14,7 +14,7 @@ angular.module('wohlgemuth.massbank.parser', []).
         this.convertWithCallback = function (data, callback) {
             // Trim white spaces
             var trim = function (str) {
-                return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+                return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace('\w\w\$', '');
             };
 
 
@@ -91,7 +91,6 @@ angular.module('wohlgemuth.massbank.parser', []).
 
             // Builds our metadata object
             while ((match = regexAttr.exec(buf)) != null) {
-
                 if (match[1] === 'PK$PEAK' || match[1] === 'PK$NUM_PEAK' || match[1] === 'CH$SMILES' || match[1] === 'CH$FORMULA' || match[1] === 'RECORD_TITLE' || match[1] === 'DATE') {
                     //skip
                 }
@@ -108,7 +107,7 @@ angular.module('wohlgemuth.massbank.parser', []).
                     spectrum.inchi = trim(match[2]);
                 }
                 else {
-                    if (match[1].indexOf('LINK')) {
+                    if (match[1].indexOf('LINK') > -1) {
                         addMetaData(match[2], match[1], spectrum);
                     } else if (match[1] === 'AC$MASS_SPECTROMETRY') {
                         addMetaData(match[2], match[1], spectrum);
