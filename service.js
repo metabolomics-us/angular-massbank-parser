@@ -75,7 +75,7 @@ angular.module('wohlgemuth.massbank.parser', []).
             var meta = {};
 
             // Regular expression for getting the attributes
-            var regexAttr = /\s*(\w+):\s(.+)\s/g;
+            var regexAttr = /\s*(\S+):\s(.+)\s/g;
 
             // Regular expression for getting the annotations
             // Get entire annotation: /(\s\s(?:\d+\.?\d*)(?:\s\d+)?\s+[^\s\d]+.+)/g
@@ -92,32 +92,32 @@ angular.module('wohlgemuth.massbank.parser', []).
             // Builds our metadata object
             while ((match = regexAttr.exec(buf)) != null) {
 
-                if (match[1] === 'PEAK' || match[1] === 'NUM_PEAK' || match[1] === 'SMILES' || match[1] === 'FORMULA' || match[1] === 'RECORD_TITLE' || match[1] === 'DATE') {
+                if (match[1] === 'PK$PEAK' || match[1] === 'PK$NUM_PEAK' || match[1] === 'CH$SMILES' || match[1] === 'CH$FORMULA' || match[1] === 'RECORD_TITLE' || match[1] === 'DATE') {
                     //skip
                 }
-                else if (match[1] === 'NAME') {
+                else if (match[1] === 'CH$NAME') {
                     spectrum.names.push(trim(match[2]));
                 }
-                else if (match[1] === 'ANNOTATION') {
+                else if (match[1] === 'PK$ANNOTATION') {
                     // Parse annotation entries
                     while ((match = regexAnnotation.exec(data)) != null) {
                         spectrum.meta.push({category: "annotation", name: trim(match[2]), value: trim(match[1])});
                     }
                 }
-                else if (match[1] == 'IUPAC') {
+                else if (match[1] == 'CH$IUPAC') {
                     spectrum.inchi = trim(match[2]);
                 }
                 else {
-                    if (match[1] == 'LINK') {
+                    if (match[1].indexOf('LINK')) {
                         addMetaData(match[2], match[1], spectrum);
-                    } else if (match[1] === 'MASS_SPECTROMETRY') {
+                    } else if (match[1] === 'AC$MASS_SPECTROMETRY') {
                         addMetaData(match[2], match[1], spectrum);
-                    } else if (match[1] === 'CHROMATOGRAPHY') {
+                    } else if (match[1] === 'AC$CHROMATOGRAPHY') {
                         addMetaData(match[2], match[1], spectrum);
-                    } else if (match[1] == 'FOCUSED_ION') {
+                    } else if (match[1] == 'MS$FOCUSED_ION') {
                         addMetaData(match[2], match[1], spectrum);
                     }
-                    else if (match[1] == 'DATA_PROESSING') {
+                    else if (match[1] == 'MS$DATA_PROESSING') {
                         addMetaData(match[2], match[1], spectrum);
                     }
 
