@@ -32,7 +32,6 @@ describe('MassbankService test', function () {
 				expect(data.names.indexOf('(3beta,23R)-14,15,16,17-Tetradehydroveratraman-3,23-diol')).toBeGreaterThan(-1);
 				expect(data.meta.length).toBeGreaterThan(0);
 				expect(data.spectrum).toBeDefined();
-            console.log(data);
 			});
 		}));
 		
