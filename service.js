@@ -14,7 +14,7 @@ angular.module('wohlgemuth.massbank.parser', []).
         this.convertWithCallback = function (data, callback) {
             // Trim white spaces
             var trim = function (str) {
-                return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace('\w\w\$', '');
+                return str.replace(/^\s\s*/, '');
             };
 
 
@@ -27,7 +27,7 @@ angular.module('wohlgemuth.massbank.parser', []).
 
                 var match = sub.exec(value);
 
-                if(match == null) {
+                if (match == null) {
                     return;
                 }
 
@@ -71,8 +71,6 @@ angular.module('wohlgemuth.massbank.parser', []).
 
             // Initial spectrum
             var spectrum = {meta: [], names: []};
-
-            var meta = {};
 
             // Regular expression for getting the attributes
             var regexAttr = /\s*(\S+):\s(.+)\s/g;
@@ -126,17 +124,21 @@ angular.module('wohlgemuth.massbank.parser', []).
                 }
             }
 
-            // Add metadata to spectrum object
-            Object.keys(meta).forEach(function (key) {
+            var reg = /^(?:[a-zA-Z\s])*\$(.*)$/i;
 
-                var current = meta[key];
+            for (var i = 0; i < spectrum.meta.length; i++) {
+                var object = spectrum.meta[i];
 
-                for (var x in current) {
-                    spectrum.meta.push({name: key, value: current[x]});
+                if (reg.test(object.name)) {
+                    object.name = reg.exec(object.name)[1];
                 }
-            });
 
 
+                if (object.category != null && reg.test(object.category)) {
+                    object.category = reg.exec(object.category)[1];
+                }
+
+            }
             // Builds the spectrum
             // Floating point/scientific notation regex:
             //     (?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?
