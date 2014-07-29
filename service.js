@@ -14,7 +14,7 @@ angular.module('wohlgemuth.massbank.parser', []).
         this.convertWithCallback = function (data, callback) {
             // Trim white spaces
             var trim = function (str) {
-                return str.replace(/^\s\s*/, '');
+                return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
             };
 
 
