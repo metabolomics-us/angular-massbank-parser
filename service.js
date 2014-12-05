@@ -2,8 +2,6 @@
 
 angular.module('wohlgemuth.massbank.parser', []).
     service('gwMassbankService', function ($log, $filter) {
-        // reference to our service
-
         /**
          * Converts the data using a callback
          * Follows the MassBank Record Format v2.09
@@ -41,7 +39,6 @@ angular.module('wohlgemuth.massbank.parser', []).
 
                 //let's cutoff the units
                 if (key == 'retention_time') {
-
                     var reg = /([0-9]+\.?[0-9]+).*min.*/;
 
                     if (reg.test(match[2])) {
@@ -51,6 +48,7 @@ angular.module('wohlgemuth.massbank.parser', []).
                         spectrum.meta.push({name: (key), value: trim(match[2]), category: (category)});
                     }
                 }
+
                 //make sure this is a double or ignore it
                 if (key == 'precursor_m/z') {
                     var reg = /([0-9]+\.?[0-9]+)/g;
@@ -63,6 +61,7 @@ angular.module('wohlgemuth.massbank.parser', []).
                         getIt = reg.exec(match[2])
                     }
                 }
+
                 //just deal with it
                 else {
                     spectrum.meta.push({name: (key), value: trim(match[2]), category: (category)});
@@ -137,8 +136,8 @@ angular.module('wohlgemuth.massbank.parser', []).
                 if (object.category != null && reg.test(object.category)) {
                     object.category = reg.exec(object.category)[1];
                 }
-
             }
+
             // Builds the spectrum
             // Floating point/scientific notation regex:
             //     (?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?
@@ -152,7 +151,6 @@ angular.module('wohlgemuth.massbank.parser', []).
             var regExAccurateMass = /([0-9]*\.?[0-9]{3,})/;
 
             var ions = [];
-            var accurateMass = true;
 
             while ((match = regexSpectra.exec(buf)) != null) {
                 // Convert scientific notation
@@ -184,7 +182,29 @@ angular.module('wohlgemuth.massbank.parser', []).
             }
         };
 
+        /**
+         * converts the data using a callback
+         * @param data
+         * @param callback
+         */
         this.convertFromData = function (data, callback) {
             return this.convertWithCallback(data, callback);
+        };
+
+        /**
+         * counts the number of mass spectra in this library file
+         * @param data
+         * @returns {number}
+         */
+        this.countSpectra = function(data) {
+            var count = 0;
+            var pos = -1;
+
+            while((pos = data.indexOf('PK$NUM_PEAK', pos + 1)) != -1) {
+                count++;
+            }
+
+            // Massbank record files are only valid if they have a single spectrum
+            return (count <= 1 ? count : 0);
         }
     });
