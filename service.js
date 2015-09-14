@@ -100,8 +100,22 @@ angular.module('wohlgemuth.massbank.parser', []).
                         spectrum.meta.push({category: "annotation", name: trim(match[2]), value: trim(match[1])});
                     }
                 }
-                else if (match[1] == 'CH$IUPAC') {
-                    spectrum.inchi = trim(match[2]);
+                else if (match[1] == 'CH$IUPAC' || match[1] == 'CH$INCHI') {
+                    match[2] = trim(match[2]);
+
+                    if (match[2].indexOf('InChI=') > -1) {
+                        // Look for second instance of 'InChI='
+                        var idx = match[2].indexOf('InChI=');
+                        idx = match[2].indexOf('InChI=', idx + 1);
+
+                        if(idx > -1) {
+                            spectrum.inchi = trim(match[2].substring(idx));
+                        } else {
+                            spectrum.inchi = match[2];
+                        }
+                    } else {
+                        spectrum.names.push(match[2])
+                    }
                 }
                 else if (match[1] == 'COMMENT') {
                     spectrum.comments = trim(match[2]);
