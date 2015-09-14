@@ -103,6 +103,9 @@ angular.module('wohlgemuth.massbank.parser', []).
                 else if (match[1] == 'CH$IUPAC') {
                     spectrum.inchi = trim(match[2]);
                 }
+                else if (match[1] == 'COMMENT') {
+                    spectrum.comments = trim(match[2]);
+                }
                 else {
                     if (match[1].indexOf('LINK') > -1) {
                         addMetaData(match[2], match[1], spectrum);
@@ -142,7 +145,7 @@ angular.module('wohlgemuth.massbank.parser', []).
             // Floating point/scientific notation regex:
             //     (?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?
             // from: http://stackoverflow.com/a/658662/406772
-            var regexSpectra = /\s\s((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)\s((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)\s\d+\b/g;
+            var regexSpectra = /\s\s((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)\s((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)\s(\d+)\b/g;
 
             /**
              * is this an accurate mass
@@ -152,6 +155,8 @@ angular.module('wohlgemuth.massbank.parser', []).
 
             var ions = [];
 
+            var isAbsolute = false;
+
             while ((match = regexSpectra.exec(buf)) != null) {
                 // Convert scientific notation
                 if (match[1].toLowerCase().indexOf('e') > -1) {
@@ -160,12 +165,28 @@ angular.module('wohlgemuth.massbank.parser', []).
                 if (match[2].toLowerCase().indexOf('e') > -1) {
                     match[2] = parseFloat(match[2]).toString();
                 }
+                if (match[3].toLowerCase().indexOf('e') > -1) {
+                    match[3] = parseFloat(match[3]).toString();
+                }
 
-                ions.push(match[1] + ':' + match[2]);
+                if (match[2] > 0) {
+                    isAbsolute = true;
+                }
+
+                ions.push([match[1], match[2], match[3]]);
 
                 // Used to determine if this is an accurate mass spectra or not
                 if (!regExAccurateMass.test(match[1])) {
                     spectrum.accurate = false;
+                }
+            }
+
+            // Replace intensities with absolute or relative intensities
+            for (var i = 0; i < ions.length; i++) {
+                if (isAbsolute) {
+                    ions[i] = ions[i][0] +':'+ ions[i][1];
+                } else {
+                    ions[i] = ions[i][0] +':'+ ions[i][2];
                 }
             }
 
