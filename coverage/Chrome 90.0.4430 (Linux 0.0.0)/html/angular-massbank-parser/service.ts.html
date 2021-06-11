@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for angular-massbank-parser/service.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">angular-massbank-parser/</a> service.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.92% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>93/107</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.35% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>56/68</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">71.43% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.92% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>93/107</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">1857×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">393×</span>
+<span class="cline-any cline-yes">393×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">393×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">393×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">393×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">391×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">391×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">391×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">391×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">377×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">953×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">773×</span>
+<span class="cline-any cline-yes">60×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">713×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">708×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">678×</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">649×</span>
+<span class="cline-any cline-yes">87×</span>
+<span class="cline-any cline-yes">562×</span>
+<span class="cline-any cline-yes">160×</span>
+<span class="cline-any cline-yes">402×</span>
+<span class="cline-any cline-yes">88×</span>
+<span class="cline-any cline-yes">314×</span>
+<span class="cline-any cline-yes">58×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">256×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">256×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">680×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">680×</span>
+<span class="cline-any cline-yes">148×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">680×</span>
+<span class="cline-any cline-yes">406×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2452×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2452×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2452×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2452×</span>
+<span class="cline-any cline-yes">2452×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2452×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2452×</span>
+<span class="cline-any cline-yes">153×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">2452×</span>
+<span class="cline-any cline-yes">2452×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as angular from 'angular';
+&nbsp;
+export default class GwMassBankService {
+	private static $inject = ['$log', '$filter'];
+	private $log;
+	private $filter;
+	constructor($log, $filter) {
+		this.$log = $log;
+		this.$filter = $filter;
+	}
+&nbsp;
+	/**
+	 * Converts the data using a callback
+	 * Follows the MassBank Record Format v2.09
+	 * http://www.massbank.jp/manuals/MassBankRecord_en.pdf
+	 * @param data
+	 * @param callback
+	 */
+	convertWithCallback =  (data, callback) =&gt; {
+		// Trim white spaces
+		let trim = (str) =&gt; {
+			return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		};
+&nbsp;
+&nbsp;
+		function addMetaData(value, category, spectrum){
+			<span class="missing-if-branch" title="else path not taken" >E</span>if (category != null) {
+				category = trim(category);
+			}
+&nbsp;
+			let sub = /(\w+[\/]*\w)\s(.+)/;
+&nbsp;
+			let match = sub.exec(value);
+&nbsp;
+			if (match == null) {
+				return;
+			}
+&nbsp;
+			// Add metadata as an array
+			let key = trim(match[1].toLowerCase());
+&nbsp;
+			//switch categories
+			<span class="missing-if-branch" title="if path not taken" >I</span>if (category == 'FOCUSED_ION') {
+<span class="cstat-no" title="statement not covered" >				category = 'MASS_SPECTROMETRY'</span>
+			}
+&nbsp;
+			//let's cutoff the units
+			if (key == 'retention_time') {
+				let reg = /([0-9]+\.?[0-9]+).*min.*/;
+&nbsp;
+				if (reg.test(match[2])) {
+					spectrum.meta.push({name: (key), value: trim(reg.exec(match[2])[1]), category: (category)});
+				}
+				else {
+					spectrum.meta.push({name: (key), value: trim(match[2]), category: (category)});
+				}
+			}
+&nbsp;
+			//make sure this is a double or ignore it
+			if (key == 'precursor_m/z') {
+				let reg = /([0-9]+\.?[0-9]+)/g;
+&nbsp;
+				let getIt = reg.exec(match[2]);
+&nbsp;
+				while (getIt != null) {
+					spectrum.meta.push({name: ('precursor m/z'), value: trim(getIt[1]), category: (category)});
+&nbsp;
+					getIt = reg.exec(match[2])
+				}
+			}
+&nbsp;
+			//just deal with it
+			else {
+				spectrum.meta.push({name: (key), value: trim(match[2]), category: (category)});
+			}
+		}
+		// Initial spectrum
+		let spectrum = {names: [], meta: [], inchi: '', comments: '', accurate: true, spectrum: ''};
+&nbsp;
+		// Regular expression for getting the attributes
+		let regexAttr = /\s*(\S+):\s(.+)\s/g;
+&nbsp;
+		// Regular expression for getting the annotations
+		// Get entire annotation: /(\s\s(?:\d+\.?\d*)(?:\s\d+)?\s+[^\s\d]+.+)/g
+		let regexAnnotation = /\s\s(\d+\.?\d*)(?:\s\d+)?\s+.*(\[.+\][\+\-]?(?:\(.+\))?).*/g;
+&nbsp;
+		// Regular expression for getting subtags and values
+		let regexSubtags = /(\w+)\s(.+)/;
+&nbsp;
+		// Regex matches
+		let match;
+&nbsp;
+		let buf = data.toString('utf8');
+&nbsp;
+		// Builds our metadata object
+		while ((match = regexAttr.exec(buf)) != null) {
+			if (match[1] === 'PK$PEAK' || match[1] === 'PK$NUM_PEAK' || match[1] === 'CH$SMILES' || match[1] === 'CH$FORMULA' || match[1] === 'RECORD_TITLE' || match[1] === 'DATE') {
+				//skip
+			}
+			else if (match[1] === 'CH$NAME') {
+				spectrum.names.push(trim(match[2]));
+			}
+			else if (match[1] === 'PK$ANNOTATION') {
+				// Parse annotation entries
+				while ((match = regexAnnotation.exec(data)) != null) {
+					spectrum.meta.push({category: "annotation", name: trim(match[2]), value: trim(match[1])});
+				}
+			}
+			else if (match[1] == 'CH$IUPAC' || match[1] == 'CH$INCHI') {
+				match[2] = trim(match[2]);
+&nbsp;
+				<span class="missing-if-branch" title="else path not taken" >E</span>if (match[2].indexOf('InChI=') &gt; -1) {
+					// Look for second instance of 'InChI='
+					let idx = match[2].indexOf('InChI=');
+					idx = match[2].indexOf('InChI=', idx + 1);
+&nbsp;
+					<span class="missing-if-branch" title="if path not taken" >I</span>if (idx &gt; -1) {
+<span class="cstat-no" title="statement not covered" >						spectrum.inchi = trim(match[2].substring(idx));</span>
+					} else {
+						spectrum.inchi = match[2];
+					}
+				} else {
+<span class="cstat-no" title="statement not covered" >					spectrum.names.push(match[2])</span>
+				}
+			}
+			else if (match[1] == 'COMMENT') {
+				spectrum.comments = trim(match[2]);
+			}
+			else {
+				if (match[1].indexOf('LINK') &gt; -1) {
+					addMetaData(match[2], match[1], spectrum);
+				} else if (match[1] === 'AC$MASS_SPECTROMETRY') {
+					addMetaData(match[2], match[1], spectrum);
+				} else if (match[1] === 'AC$CHROMATOGRAPHY') {
+					addMetaData(match[2], match[1], spectrum);
+				} else if (match[1] == 'MS$FOCUSED_ION') {
+					addMetaData(match[2], match[1], spectrum);
+				}
+				else <span class="missing-if-branch" title="if path not taken" >I</span>if (match[1] == 'MS$DATA_PROESSING') {
+<span class="cstat-no" title="statement not covered" >					addMetaData(match[2], match[1], spectrum);</span>
+				}
+&nbsp;
+				else {
+					spectrum.meta.push({name: trim(match[1]), value: trim(match[2])});
+				}
+			}
+		}
+&nbsp;
+		let reg = /^(?:[a-zA-Z\s])*\$(.*)$/i;
+&nbsp;
+		for (let i = 0; i &lt; spectrum.meta.length; i++) {
+			let object = spectrum.meta[i];
+&nbsp;
+			if (reg.test(object.name)) {
+				object.name = reg.exec(object.name)[1];
+			}
+&nbsp;
+&nbsp;
+			if (object.category != null &amp;&amp; reg.test(object.category)) {
+				object.category = reg.exec(object.category)[1];
+			}
+		}
+&nbsp;
+		// Builds the spectrum
+		// Floating point/scientific notation regex:
+		//     (?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?
+		// from: http://stackoverflow.com/a/658662/406772
+		let regexSpectra = /\s\s((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)\s((?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?)\s(\d+)\b/g;
+&nbsp;
+		/**
+		 * is this an accurate mass
+		 * @type {RegExp}
+		 */
+		let regExAccurateMass = /([0-9]*\.?[0-9]{3,})/;
+&nbsp;
+		let ions = [];
+&nbsp;
+		let isAbsolute = false;
+&nbsp;
+		while ((match = regexSpectra.exec(buf)) != null) {
+			// Convert scientific notation
+			<span class="missing-if-branch" title="if path not taken" >I</span>if (match[1].toLowerCase().indexOf('e') &gt; -1) {
+<span class="cstat-no" title="statement not covered" >				match[1] = parseFloat(match[1]).toString();</span>
+			}
+			if (match[2].toLowerCase().indexOf('e') &gt; -1) {
+				match[2] = parseFloat(match[2]).toString();
+			}
+			<span class="missing-if-branch" title="if path not taken" >I</span>if (match[3].toLowerCase().indexOf('e') &gt; -1) {
+<span class="cstat-no" title="statement not covered" >				match[3] = parseFloat(match[3]).toString();</span>
+			}
+&nbsp;
+			<span class="missing-if-branch" title="else path not taken" >E</span>if (match[2] &gt; 0) {
+				isAbsolute = true;
+			}
+&nbsp;
+			ions.push([match[1], match[2], match[3]]);
+&nbsp;
+			// Used to determine if this is an accurate mass spectra or not
+			if (!regExAccurateMass.test(match[1])) {
+				spectrum.accurate = false;
+			}
+		}
+&nbsp;
+		// Replace intensities with absolute or relative intensities
+		for (let i = 0; i &lt; ions.length; i++) {
+			<span class="missing-if-branch" title="else path not taken" >E</span>if (isAbsolute) {
+				ions[i] = ions[i][0] + ':' + ions[i][1];
+			} else {
+<span class="cstat-no" title="statement not covered" >				ions[i] = ions[i][0] + ':' + ions[i][2];</span>
+			}
+		}
+&nbsp;
+		// Join ions to create spectrum string
+		spectrum.spectrum = ions.join(' ');
+&nbsp;
+&nbsp;
+		// Make sure we have at least a spectrum and name before returning the spectrum
+		<span class="missing-if-branch" title="else path not taken" >E</span>if (ions.length &amp;&amp; spectrum.names.length) {
+			callback(spectrum);
+		}
+		else {
+<span class="cstat-no" title="statement not covered" >			this.$log.warn("was no able to find valid spectra for record:\n\n" + data + "\n\n build object was:\n\n" + this.$filter('json')(spectrum));</span>
+		}
+	};
+&nbsp;
+	/**
+	 * converts the data using a callback
+	 * @param data
+	 * @param callback
+	 */
+	convertFromData =  <span class="fstat-no" title="function not covered" >(data, callback)</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >		return this.convertWithCallback(data, callback);</span>
+	};
+&nbsp;
+	/**
+	 * counts the number of mass spectra in this library file
+	 * @param data
+	 * @returns {number}
+	 */
+	countSpectra =  <span class="fstat-no" title="function not covered" >(data)</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >		let count = 0;</span>
+<span class="cstat-no" title="statement not covered" >		let pos = -1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		while ((pos = data.indexOf('PK$NUM_PEAK', pos + 1)) != -1) {</span>
+<span class="cstat-no" title="statement not covered" >			count++;</span>
+		}
+&nbsp;
+		// Massbank record files are only valid if they have a single spectrum
+<span class="cstat-no" title="statement not covered" >		return (count &lt;= 1 ? count : 0);</span>
+	}
+&nbsp;
+}
+&nbsp;
+angular.module('wohlgemuth.massbank.parser', [])
+	.service('gwMassbankService', GwMassBankService);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 11 2021 14:13:04 GMT-0700 (Pacific Daylight Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
