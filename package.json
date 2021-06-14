@@ -5,8 +5,11 @@
     "Gert Wohlgemuth <berlinguy@gmail.com>",
     "Sajjan Mehta <sajjan.s.mehta@gmail.com>"
   ],
+  "scripts": {
+    "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "prepublish": "npm run tsc"
+  },
   "description": "This is a parser for MassBank Records files",
-  "main": "service.ts",
   "keywords": [
     "angular"
   ],
@@ -28,5 +31,9 @@
     "karma-typescript-es6-transform": "^5.5.1",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.2"
-  }
+  },
+  "main": "./lib/cjs/service.js",
+  "files": [
+    "lib/"
+  ]
 }
